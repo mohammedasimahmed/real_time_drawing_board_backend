@@ -8,7 +8,7 @@ app.use(cors());
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://recipe-app-alpha-bay.vercel.app",
+    origin: "https://realtime-drawing-board-psi.vercel.app",
   },
 });
 
