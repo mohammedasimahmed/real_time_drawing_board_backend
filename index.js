@@ -8,17 +8,29 @@ app.use(cors());
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://realtime-drawing-board-psi.vercel.app",
+    origin: "https://recipe-app-alpha-bay.vercel.app",
   },
 });
 
 io.on("connection", (socket) => {
-
   socket.on("join_room", (room) => {
     socket.join(room);
-    socket.on("send_drawing", (data, mouse, height, width) => {
-      socket.to(room).emit("receive_drawing", data, mouse, height, width);
-    });
+    socket.on(
+      "send_drawing",
+      (prevPoint, point, color, linewidth, height, width) => {
+        socket
+          .to(room)
+          .emit(
+            "receive_drawing",
+            prevPoint,
+            point,
+            color,
+            linewidth,
+            height,
+            width
+          );
+      }
+    );
     socket.on("send_text", (text) => {
       socket.to(room).emit("receive_text", text);
     });
