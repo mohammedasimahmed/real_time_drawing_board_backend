@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
     socket.on("send_text", (text) => {
       socket.to(room).emit("receive_text", text);
     });
+
+    socket.on("clear_canvas", (roomid) => {
+      socket.to(roomid).emit("canvas_clear", roomid);
+    });
   });
 });
 
